@@ -1,0 +1,1 @@
+INSERT INTO ApiKeys (api_key, is_valid) VALUES('2ec23ee8-dc4f-454f-af00-74880b0271d1', 0)

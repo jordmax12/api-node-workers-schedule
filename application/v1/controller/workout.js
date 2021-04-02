@@ -135,9 +135,7 @@ exports.patchWorkout = async (req, res) => {
         const found_workout = new WorkoutLogic({ id });
         await found_workout.hydrate();
         found_workout.merge(req.body);
-        console.log('logging after merge', found_workout);
         await found_workout.update();
-        console.log('logging found_workout', found_workout)
         res.status(200);
         res.send({ workout: found_workout.export() })
     }

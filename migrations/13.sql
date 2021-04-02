@@ -1,0 +1,4 @@
+CREATE TABLE ApiKeys (
+	api_key TEXT PRIMARY KEY,
+    is_valid BIT NOT NULL DEFAULT 0
+);
