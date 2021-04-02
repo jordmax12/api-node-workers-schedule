@@ -1,1 +1,1 @@
-INSERT INTO Trainers (trainer_id, trainer_name, trainer_photo) VALUES('test', 'test', 'test')
+INSERT INTO Trainers (id, trainer_name, trainer_photo, created, modified) VALUES('test', 'test', 'test', '2021-04-02T07:35:25Z', '2021-04-02T07:35:25Z')

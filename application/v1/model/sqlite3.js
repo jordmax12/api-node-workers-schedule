@@ -14,6 +14,7 @@ const promise_query = (db, query) => new Promise((resolve, reject) => {
 exports.execute_query = async (query) => {
     const db = get_database()
     try {
+        db.run("PRAGMA foreign_keys = ON");
         const results = await promise_query(db, query);
         db.close();
         return results;
