@@ -13,7 +13,8 @@ const {
     validateGetWorkoutByTrainerId,
     validateGetWorkoutByFilmingDatetime,
     validateGetWorkoutByFilmingDuration,
-    validatePostWorkout,
+    validatePatchWorkout,
+    validatePostWorkout
 } = require('../logic/validator');
 
 const { 
@@ -25,6 +26,8 @@ const {
     getWorkoutsByFilmDate,
     getWorkoutsByDuration 
 } = require('../logic/factories/workout');
+
+const WorkoutLogic = require('../logic/workout');
 
 const _getWorkoutById = async (req, res) => {
     if(validateGetWorkoutById(req, res)
@@ -116,8 +119,26 @@ exports.getWorkoutHandler = async (req, res) => {
 }
 
 exports.postWorkout = async (req, res) => {
-    if(validatePostWorkout(req, res)) {
+    if(await validatePostWorkout(req, res)) {
+        const new_workout = new WorkoutLogic(req.body);
+        await new_workout.create();
         res.status(200);
-        res.send({ hello: 'world' })
+        res.send({
+            workout: new_workout.export()
+        })
+    }
+}
+
+exports.patchWorkout = async (req, res) => {
+    if(await validatePatchWorkout(req, res)) {
+        const { id } = req.query;
+        const found_workout = new WorkoutLogic({ id });
+        await found_workout.hydrate();
+        found_workout.merge(req.body);
+        console.log('logging after merge', found_workout);
+        await found_workout.update();
+        console.log('logging found_workout', found_workout)
+        res.status(200);
+        res.send({ workout: found_workout.export() })
     }
 }

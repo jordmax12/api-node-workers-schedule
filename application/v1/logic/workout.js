@@ -1,5 +1,5 @@
 const {v4: uuidv4} = require('uuid');
-const { updateWorkout, createWorkout } = require('../model/workout');
+const { updateWorkout, createWorkout, getWorkoutById } = require('../model/workout');
 
 class WorkoutLogic {
     constructor(workoutObj) {
@@ -99,6 +99,16 @@ class WorkoutLogic {
     async update() {
         this._workout.modified = new Date().toISOString();
         return updateWorkout(this._workout);
+    }
+
+    async hydrate() {
+        const { id } = this._workout;
+        const find_workout = await getWorkoutById(id);
+        if(find_workout.length > 0) {
+            this._workout = find_workout[0];
+        }
+
+        return true;
     }
 }
 
