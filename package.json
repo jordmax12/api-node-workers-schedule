@@ -4,14 +4,17 @@
   "description": "Trial",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node application/server.js",
+    "migrate": "node -e 'require(\"./application/db-migration\").migrate()'",
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "jest": "^26.4.0",
+    "path": "^0.12.7",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
