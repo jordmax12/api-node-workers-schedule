@@ -2,7 +2,7 @@ const moment = require('moment');
 const { getTrainerById } = require('../model/trainer');
 const { 
     getWorkoutById,
-    getWorkoutByName,
+    getWorkoutsByName,
     getWorkoutsByStatus,
     getWorkoutsByLevel,
     getWorkoutsByDuration,
@@ -207,7 +207,7 @@ exports.workoutExistsById = async (req, res) => {
 
 exports.workoutExistsByName = async (req, res) => {
     const name = req.query.name;
-    const result = await getWorkoutByName(name);
+    const result = await getWorkoutsByName(name);
     if (result.length > 0) return true;
     else {
         _set_response_error(res, 'workouts by name does not exist', 500);
