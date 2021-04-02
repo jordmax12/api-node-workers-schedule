@@ -1,8 +1,12 @@
 const { execute_query } = require('./v1/model/sqlite3');
 const { convert_obj_to_set_statement } = require('./helpers/sqlite3')
 
-exports.getTrainerById = id => {
+const TABLE_NAME = 'Trainers';
 
+exports.getTrainerById = id => {
+    // NOTE: prone to SQL injection, if time permits, go back and prevent.
+    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE id = ${id}`;
+    return execute_query(get_query);
 }
 
 exports.updateTrainer = trainerObj => {

@@ -3,5 +3,5 @@ CREATE TABLE Trainers (
 	trainer_name TEXT NOT NULL,
     trainer_photo TEXT NOT NULL,
 	created TEXT NOT NULL,
-    modified TEXT NOT NULL,
+    modified TEXT NOT NULL
 );
