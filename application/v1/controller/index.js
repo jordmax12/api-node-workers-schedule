@@ -13,15 +13,15 @@ app.get('/v1/workout', authenicate_api_key, async (req, res) => {
   return getWorkoutHandler(req, res);
 })
 
-app.post('/v1/workout', async (req, res) => {
+app.post('/v1/workout', authenicate_api_key, async (req, res) => {
   return postWorkout(req, res);
 })
 
-app.patch('/v1/workout', async (req, res) => {
+app.patch('/v1/workout', authenicate_api_key, async (req, res) => {
   return patchWorkout(req, res);
 })
 
-app.get('/v1/trainer', async (req, res) => {
+app.get('/v1/trainer', authenicate_api_key, async (req, res) => {
   return getTrainerById(req, res);
 })
 
