@@ -1,3 +1,7 @@
 const app = require('./v1/controller/index')
 
-app.listen(3000)
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`app listening on port ${PORT}`)
+})

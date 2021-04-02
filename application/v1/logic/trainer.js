@@ -1,7 +1,7 @@
 const {v4: uuidv4} = require('uuid');
 const { updateTrainer, createTrainer } = require('../model/trainer');
 
-class Trainers {
+class TrainerLogic {
     constructor(trainerObj) {
         const currentTime = new Date().toISOString();
         this._trainer = {
@@ -66,4 +66,4 @@ class Trainers {
     }
 }
 
-module.exports = Trainers;
+module.exports = TrainerLogic;

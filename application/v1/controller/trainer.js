@@ -1,4 +1,12 @@
-exports.getTrainerById = (req, res) => {
-    console.log('here!');
-    res.send({ hello: 'world' })
+const { validateGetTrainerById } = require('../logic/validator');
+const { getTrainerById } = require('../logic/factories/trainer');
+
+exports.getTrainerById = async (req, res) => {
+    if(validateGetTrainerById(req, res)) {
+        const trainer = await getTrainerById(req.query.id);
+        res.status(200);
+        res.send({
+            trainer
+        })
+    }
 }

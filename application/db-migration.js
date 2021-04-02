@@ -44,7 +44,6 @@ exports.migrate = async () => {
         
             for(const _query of queries) {
                 try {
-                    console.log('logging query', _query)
                     await execute_query(_query);
                     update_completed(file);
                 } catch(e) {

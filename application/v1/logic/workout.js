@@ -1,13 +1,14 @@
 const {v4: uuidv4} = require('uuid');
 const { updateWorkout, createWorkout } = require('../model/workout');
 
-class Workouts {
+class WorkoutLogic {
     constructor(workoutObj) {
         const currentTime = new Date().toISOString();
         this._workout = {
             id: workoutObj.id || uuidv4(),
             filming_datetime: workoutObj.filming_datetime,
             filming_duration: workoutObj.filming_duration,
+            workout_name: workoutObj.workout_name,
             workout_status: workoutObj.workout_status,
             workout_level: workoutObj.workout_level,
             trainer_id: workoutObj.trainer_id,
@@ -93,4 +94,4 @@ class Workouts {
     }
 }
 
-module.exports = Workouts;
+module.exports = WorkoutLogic;
