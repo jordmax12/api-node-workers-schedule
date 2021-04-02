@@ -37,6 +37,14 @@ class WorkoutLogic {
         this._workout.filming_duration = filming_duration;
     }
 
+    get workout_name() {
+        return this._workout.workout_name;
+    }
+
+    set workout_name(workout_name) {
+        this._workout.workout_name = workout_name;
+    }
+
     get workout_status() {
         return this._workout.workout_status;
     }

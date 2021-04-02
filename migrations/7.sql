@@ -1,0 +1,1 @@
+INSERT INTO Trainers (id, trainer_name, trainer_photo, created, modified) VALUES('2', 'Stephanie Max', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV2FIrtjj2hmXOUt2CTa3y0RqUN0laUZEbpA&usqp=CAU', '2021-04-01T07:35:25Z', '2021-04-01T07:35:25Z')

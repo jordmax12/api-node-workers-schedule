@@ -1,1 +1,1 @@
-INSERT INTO Trainers (id, trainer_name, trainer_photo, created, modified) VALUES('test-trainer-id', 'test-trainer-name', 'test-trainer-photo', '2021-04-02T07:35:25Z', '2021-04-02T07:35:25Z')
+INSERT INTO Trainers (id, trainer_name, trainer_photo, created, modified) VALUES('1', 'Jordan Max', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6WbAp13uFPqYleZaEycgGSNoVLP3Uu50kRg&usqp=CAU', '2021-04-02T07:35:25Z', '2021-04-02T07:35:25Z')
