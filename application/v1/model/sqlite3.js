@@ -1,16 +1,13 @@
 const sqlite3 = require('sqlite3').verbose();
 
 const get_database = () => {
-    return new sqlite3.Database('fightcamp');
+    return new sqlite3.Database('./database/fightcamp');
 }
 
 const promise_query = (db, query) => new Promise((resolve, reject) => {
     db.all(query, (err, rows) => {
         if(err) reject(err);
-        else {
-            console.log('logging rows', rows)
-            return rows;
-        }
+        else resolve(rows);
     })
 })
 

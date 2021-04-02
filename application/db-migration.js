@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const sorter = require('./common/sorter');
-const { execute_query } = require('./v1/model/sqlite3')
+const { execute_query } = require('./v1/model/sqlite3');
+
+let completed = require('../migrations/completed.json').completed;
 
 const MIGRATIONS_DIR = 'migrations';
 
@@ -17,19 +19,38 @@ function processSQLFile(fileName) {
     return queries;
 }
 
+const valide_sql_file = file_name => {
+    const completed_migration = completed.indexOf(file_name) === -1;
+    const is_sql = file_name.indexOf('.sql') > -1;
+    return completed_migration && is_sql;
+}
+
+const update_completed = file_name => {
+    completed.push(file_name);
+    const new_completed = {
+        completed
+    }
+    completed = new_completed.completed;
+    return fs.writeFileSync(`${process.cwd()}/migrations/completed.json`, JSON.stringify(new_completed, null, 4));
+}
+
 exports.migrate = async () => {
     const dir = path.join(process.cwd(), MIGRATIONS_DIR);
     const files = sorter.sortFiles(await fs.readdirSync(dir), '.sql');
-    console.log('logging files', files);
+    console.info('Logging files to be migrated: ', files);
     for(const file of files) {
-        const queries = processSQLFile(`${dir}/${file}`);
+        if(valide_sql_file(file)) {
+            const queries = processSQLFile(`${dir}/${file}`);
         
-        for(const _query of queries) {
-            try {
-                await execute_query(_query);
-            } catch(e) {
-                // okay to gracefully handle this error, likely a table existing. 
-                console.info('logging migration error: ' + e);
+            for(const _query of queries) {
+                try {
+                    console.log('logging query', _query)
+                    await execute_query(_query);
+                    update_completed(file);
+                } catch(e) {
+                    // okay to gracefully handle this error, likely a table existing. 
+                    console.info('logging migration error: ' + e);
+                }
             }
         }
     }

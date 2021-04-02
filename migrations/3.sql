@@ -1,0 +1,1 @@
+INSERT INTO Trainers (trainer_id, trainer_name, trainer_photo) VALUES('test', 'test', 'test')
