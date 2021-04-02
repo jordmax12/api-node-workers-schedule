@@ -1,0 +1,1 @@
+INSERT INTO Workouts (id, workout_name, workout_status, workout_level, filming_datetime, filming_duration, trainer_id, created, modified) VALUES('7', 'test-workout-name-5', 'PLANNING', 'BEGINNER', '2021-04-04T07:35:25Z', 100, '2', '2021-04-04T07:35:25Z', '2021-04-04T07:35:25Z')

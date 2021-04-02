@@ -34,10 +34,10 @@ const update_completed = file_name => {
     return fs.writeFileSync(`${process.cwd()}/migrations/completed.json`, JSON.stringify(new_completed, null, 4));
 }
 
-exports.migrate = async () => {
+exports.hydrate = async () => {
     const dir = path.join(process.cwd(), MIGRATIONS_DIR);
     const files = sorter.sortFiles(await fs.readdirSync(dir), '.sql');
-    console.info('Logging files to be migrated: ', files);
+    console.info('Logging files to be hydrated: ', files);
     for(const file of files) {
         if(valide_sql_file(file)) {
             const queries = processSQLFile(`${dir}/${file}`);

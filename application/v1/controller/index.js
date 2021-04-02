@@ -1,18 +1,23 @@
 const express = require('express')
 const app = express()
 const { getTrainerById } = require('./trainer');
-const { getWorkoutById } = require('./workout');
- 
-app.get('/', function (req, res) {
-  res.send('Hello World')
+const { getWorkoutHandler, postWorkout } = require('./workout');
+
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
+app.get('/v1/workout', async (req, res) => {
+  return getWorkoutHandler(req, res);
 })
 
-app.get('/v1/workout', (req, res) => {
-  getWorkoutById(req, res);
+app.post('/v1/workout', async (req, res) => {
+  return postWorkout(req, res);
 })
 
-app.get('/v1/trainer', (req, res) => {
-  getTrainerById(req, res);
+app.get('/v1/trainer', async (req, res) => {
+  return getTrainerById(req, res);
 })
 
 module.exports = app;

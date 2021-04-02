@@ -1,5 +1,5 @@
 const { execute_query } = require('./sqlite3');
-const { convert_obj_to_set_statement } = require('./helpers/sqlite3');
+const { convert_obj_to_set_statement, generate_where_with_pagination } = require('./helpers/sqlite3');
 
 const TABLE_NAME = 'Workouts';
 
@@ -9,39 +9,45 @@ exports.getWorkoutById = async id => {
     return execute_query(get_query);
 }
 
-exports.getWorkoutByName = async name => {
+exports.getWorkoutsByName = async (name, last_created = null) => {
     // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE workout_name = '${name}'`;
+    const _where = generate_where_with_pagination([{ key: 'workout_name', value: name }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
     return execute_query(get_query);
 }
 
-exports.getWorkoutByDateTime = async filming_datetime => {
+exports.getWorkoutsByStatus = async (status, last_created = null) => {
     // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE filming_datetime = '${filming_datetime}'`;
+    const _where = generate_where_with_pagination([{ key: 'workout_status', value: status }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
     return execute_query(get_query);
 }
 
-exports.getWorkoutByDuration = async duration => {
+exports.getWorkoutsByLevel = async (level, last_created = null) => {
     // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE filming_duration = '${duration}'`;
-    return execute_query(get_query);
-}
-
-exports.getWorkoutByStatus = async status => {
-    // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE workout_status = '${status}'`;
-    return execute_query(get_query);
-}
-
-exports.getWorkoutByLevel = async level => {
-    // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE workout_level = '${level}'`;
+    const _where = generate_where_with_pagination([{ key: 'workout_level', value: level }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
     return execute_query(get_query);  
 }
 
-exports.getWorkoutByTrainerId = async trainer_id => {
+exports.getWorkoutsByDateTime = async (filming_datetime, last_created = null) => {
     // NOTE: prone to SQL injection, if time permits, go back and prevent.
-    const get_query = `SELECT * FROM ${TABLE_NAME} WHERE trainer_id = '${trainer_id}'`;
+    const _where = generate_where_with_pagination([{ key: 'filming_datetime', value: filming_datetime }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
+    return execute_query(get_query);
+}
+
+exports.getWorkoutsByDuration = async (duration, last_created = null) => {
+    // NOTE: prone to SQL injection, if time permits, go back and prevent.
+    const _where = generate_where_with_pagination([{ key: 'filming_duration', value: duration }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
+    return execute_query(get_query);
+}
+
+exports.getWorkoutsByTrainerId = async (trainer_id, last_created = null) => {
+    // NOTE: prone to SQL injection, if time permits, go back and prevent.
+    const _where = generate_where_with_pagination([{ key: 'trainer_id', value: trainer_id }], last_created, 'filming_datetime');
+    const get_query = `SELECT * FROM ${TABLE_NAME} ${_where} ORDER BY created LIMIT 10`;
     return execute_query(get_query);
 }
 
